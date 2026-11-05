@@ -1,0 +1,62 @@
+name: Build & Deploy (Godot Web → GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          if [ -d /root/.local/share/godot/export_templates/4.3.stable ] && [ "$HOME" != "/root" ]; then
+            cp -r /root/.local/share/godot/export_templates/4.3.stable ~/.local/share/godot/export_templates/
+          fi
+          ls ~/.local/share/godot/export_templates/ || true
+
+      - name: Import project
+        run: godot --headless --import || true
+
+      - name: Smoke test (all 8 stages)
+        run: godot --headless -- --smoke
+
+      - name: Export Web (no threads, Compatibility renderer)
+        run: |
+          mkdir -p build/play
+          godot --headless --export-release "Web" build/play/index.html
+          ls -la build/play
+
+      - name: Add landing page
+        run: |
+          cp web/index.html build/index.html
+          touch build/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
