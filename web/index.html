@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud Climb 3D · Sky Island Obby</title>
+<meta name="description" content="Cloud Climb 3D: a low-poly 3D obby. Climb 8 floating sky islands, dodge spinners and lava, beat your best times and unlock hats. Free in your browser.">
+<link rel="icon" href="play/index.icon.png">
+<style>
+:root{--sky1:#3f7fe8;--sky2:#9fd0ff;--ink:#14204a;--sun:#ffd23f;--grass:#5fd36b;--card:rgba(255,255,255,.92)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,#eaf6ff 100%);min-height:100vh}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header{position:relative;padding:56px 0 40px;text-align:center;color:#fff;overflow:hidden}
+.cloud{position:absolute;background:#fff;border-radius:999px;opacity:.85;filter:drop-shadow(0 6px 0 rgba(20,32,74,.08));animation:drift 38s linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:55%;height:160%;left:15%;top:-70%}
+.cloud::after{width:40%;height:120%;right:12%;top:-45%}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+.badge{display:inline-block;background:rgba(20,32,74,.35);padding:6px 14px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.08em}
+h1{font-size:clamp(44px,11vw,96px);line-height:.95;margin:18px 0 10px;font-weight:900;letter-spacing:-.02em;text-shadow:0 6px 0 #1d3f99,0 12px 24px rgba(0,0,0,.25)}
+h1 span{color:var(--sun)}
+.tag{font-size:clamp(16px,4.2vw,21px);max-width:620px;margin:0 auto 26px;opacity:.95}
+.play{display:inline-flex;align-items:center;gap:12px;background:var(--sun);color:var(--ink);font-weight:900;font-size:clamp(20px,5.5vw,28px);padding:18px 38px;border-radius:20px;text-decoration:none;border:4px solid #fff;box-shadow:0 8px 0 #c98f00,0 16px 30px rgba(0,0,0,.25);transition:transform .12s,box-shadow .12s}
+.play:hover{transform:translateY(-3px);box-shadow:0 11px 0 #c98f00,0 20px 34px rgba(0,0,0,.25)}
+.play:active{transform:translateY(5px);box-shadow:0 3px 0 #c98f00}
+.sub{margin-top:14px;font-size:14px;opacity:.9}
+.scene{display:block;width:100%;max-width:760px;height:auto;margin:30px auto 0}
+section{padding:26px 0}
+h2{font-size:clamp(26px,6vw,36px);font-weight:900;margin-bottom:16px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border-radius:20px;padding:18px;border:3px solid #fff;box-shadow:0 6px 0 rgba(20,32,74,.12)}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{font-size:15px;line-height:1.45;color:#33406b}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:10px;font-weight:900;color:#fff;font-size:20px}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.st{border-radius:16px;padding:14px;color:#fff;font-weight:800;box-shadow:0 5px 0 rgba(0,0,0,.15)}
+.st small{display:block;font-weight:600;opacity:.9;margin-top:4px;font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:18px;overflow:hidden}
+td{padding:10px 14px;border-bottom:1px solid #dfe8ff;font-size:15px;vertical-align:top}
+td:first-child{font-weight:800;white-space:nowrap}
+kbd{background:#14204a;color:#fff;border-radius:6px;padding:2px 7px;font-size:13px;font-family:inherit}
+footer{text-align:center;padding:30px 16px 40px;font-size:14px;color:#33406b}
+footer a{font-weight:800}
+</style>
+</head>
+<body>
+<header>
+  <div class="cloud" style="width:140px;height:40px;top:40px;animation-delay:-6s"></div>
+  <div class="cloud" style="width:90px;height:28px;top:150px;animation-delay:-20s;animation-duration:50s"></div>
+  <div class="cloud" style="width:180px;height:50px;top:300px;animation-delay:-31s;animation-duration:60s"></div>
+  <div class="wrap" style="position:relative">
+    <span class="badge">GODOT 4 · 3D OBBY · FREE IN BROWSER</span>
+    <h1>CLOUD<br>CLIMB <span>3D</span></h1>
+    <p class="tag">Jump, dash and dodge across <b>8 floating sky islands</b> of obstacle courses. Beat your best times, grab every coin, and show off your hats.</p>
+    <a class="play" href="play/">&#9654; Play in browser</a>
+    <p class="sub">Works on desktop (keyboard + mouse) and phones (touch joystick). No download.</p>
+    <svg class="scene" viewBox="0 0 760 300" role="img" aria-label="Low-poly floating islands with a blocky climber">
+      <defs><linearGradient id="r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b6440"/><stop offset="1" stop-color="#4a3424"/></linearGradient></defs>
+      <ellipse cx="380" cy="282" rx="380" ry="26" fill="#fff" opacity=".7"/>
+      <g><polygon points="40,190 200,190 170,215 70,215" fill="#5fd36b"/><polygon points="70,215 170,215 125,290" fill="url(#r)"/></g>
+      <g><rect x="230" y="160" width="70" height="20" rx="3" fill="#ffd66b"/><rect x="230" y="176" width="70" height="12" fill="#c79a3a"/></g>
+      <g><rect x="330" y="128" width="60" height="18" rx="3" fill="#b07cff"/><rect x="330" y="142" width="60" height="10" fill="#7a4fd0"/></g>
+      <g><rect x="420" y="100" width="30" height="70" rx="4" fill="#5a6070"/><rect x="380" y="92" width="110" height="12" rx="6" fill="#ff4d5e"/></g>
+      <g><polygon points="520,96 700,96 668,124 552,124" fill="#5fd36b"/><polygon points="552,124 668,124 612,210" fill="url(#r)"/></g>
+      <ellipse cx="612" cy="60" rx="34" ry="34" fill="none" stroke="#ffd23f" stroke-width="10"/>
+      <rect x="607" y="60" width="10" height="36" fill="#fff6c0" opacity=".7"/>
+      <g transform="translate(250 112)"><rect x="6" y="20" width="22" height="20" rx="2" fill="#ff6b4a"/><rect x="8" y="40" width="8" height="12" fill="#33508f"/><rect x="18" y="40" width="8" height="12" fill="#33508f"/><rect x="7" y="2" width="20" height="18" rx="3" fill="#ffd9a8"/><rect x="11" y="8" width="3" height="5" fill="#222"/><rect x="20" y="8" width="3" height="5" fill="#222"/><polygon points="17,-14 9,2 25,2" fill="#ff4db8"/></g>
+      <g fill="#ffcf2e" stroke="#e39b00" stroke-width="2"><circle cx="360" cy="108" r="7"/><circle cx="470" cy="70" r="7"/><circle cx="300" cy="140" r="7"/></g>
+    </svg>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>What's inside</h2>
+    <div class="grid">
+      <div class="card"><div class="ico" style="background:#3f7fe8">8</div><h3>8 sky-island stages</h3><p>From Meadow Steps to the Crown of Clouds, each stage teaches one trick and then mixes it up.</p></div>
+      <div class="card"><div class="ico" style="background:#ff4d5e">!</div><h3>Classic obby hazards</h3><p>Moving and vanishing platforms, wind fans, spinning bars, lava lakes and neon kill-bricks.</p></div>
+      <div class="card"><div class="ico" style="background:#2fb66a">&#10003;</div><h3>Checkpoints &amp; hearts</h3><p>Flags save your spot and refill your 5 hearts. Lose them all and the stage restarts.</p></div>
+      <div class="card"><div class="ico" style="background:#f0a400">&#9201;</div><h3>Speedrun timer</h3><p>The clock starts on your first move. Best times for every stage are saved on your device.</p></div>
+      <div class="card"><div class="ico" style="background:#b07cff">&#9733;</div><h3>Hat shop</h3><p>Spend coins on 7 hats: Sky Cap, Party Cone, Top Hat, Propeller, Viking Helm, Crown and Halo.</p></div>
+      <div class="card"><div class="ico" style="background:#14204a">3D</div><h3>Built from code</h3><p>Every mesh, material, sound and song is generated in GDScript. No imported assets at all.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The climb</h2>
+    <div class="stages">
+      <div class="st" style="background:#4caf50">1 · Meadow Steps<small>jumps &amp; a first ride</small></div>
+      <div class="st" style="background:#2f8fe0">2 · Breezy Bridges<small>moving platforms</small></div>
+      <div class="st" style="background:#8a5cf0">3 · Blink Blocks<small>vanishing tiles</small></div>
+      <div class="st" style="background:#1fa6a0">4 · Fan Falls<small>updrafts &amp; crosswind</small></div>
+      <div class="st" style="background:#e86a3a">5 · Spin Cycle<small>sweeping bars</small></div>
+      <div class="st" style="background:#b8322a">6 · Lava Lagoon<small>the floor is lava</small></div>
+      <div class="st" style="background:#3a4a78">7 · Storm Gauntlet<small>everything at once</small></div>
+      <div class="st" style="background:#c79a10">8 · Crown of Clouds<small>the final climb</small></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Controls</h2>
+    <table>
+      <tr><td>Move</td><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrow keys · phone: left-thumb joystick</td></tr>
+      <tr><td>Jump</td><td><kbd>Space</kbd> (hold for a higher jump) · phone: green jump button</td></tr>
+      <tr><td>Camera</td><td>Click the game, then move the mouse · <kbd>Q</kbd>/<kbd>E</kbd> turn · wheel zoom · phone: drag the right side</td></tr>
+      <tr><td>Other</td><td><kbd>R</kbd> respawn at checkpoint · <kbd>Esc</kbd>/<kbd>P</kbd> pause</td></tr>
+    </table>
+  </section>
+
+  <section style="text-align:center">
+    <a class="play" href="play/">&#9654; Play Cloud Climb 3D</a>
+  </section>
+</main>
+
+<footer>
+  Made by Jaineil Rana (JaKing) · part of <a href="https://github.com/JaiGod">JaiGod</a> · <a href="https://github.com/JaiGod/cloud-climb-3d">Source on GitHub</a>
+</footer>
+</body>
+</html>
